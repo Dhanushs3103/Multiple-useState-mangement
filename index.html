@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket-Scorecard</title>
+     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+   body {
+    background-image: url("https://i.pinimg.com/originals/4c/75/35/4c7535e43f5eab929bbf9b3edcc06f64.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    margin: 0; 
+    padding: 0; 
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+   }
+   #container {
+    margin: auto ;
+    padding-top: 30px;
+    width: fit-content;
+    height: fit-content;
+   }
+
+    h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 0;
+    margin-left: 40px;
+    }
+
+    button {
+        padding: 10px;
+        border-radius: 10px;
+        border: 0;
+        font-weight: 600;
+        color: white;
+    }
+
+    .increaseRuns {
+        background-color:green;
+    }
+
+    .increaseRuns:hover {
+        background-color:#38E54D;
+        cursor: pointer;
+    }
+
+   #scorecard {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+   }
+
+   #increase {
+       display: flex;
+       justify-content: center;
+       gap: 20px;
+   }
+
+
+
+   #reset {
+       margin-top: 10px;
+       display: flex;
+       justify-content: center;
+       gap: 20px;
+   }
+
+   #reset button {
+    margin-top: 10px;
+       background-color: #FF5B22;
+   }
+
+   #reset button:hover {
+    cursor: pointer;
+    background-color: #FB8B24;
+   }
+
+     </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    function Buttons ({increaseScore3, increaseScore4, increaseScore8, updateWicket, resetScore, resetWickets}) {
+        return (
+            <>
+          <div id="increase">
+          <button className="increaseRuns" onClick={increaseScore4}>Increase Runs by 4</button>
+          <button className="increaseRuns" onClick={increaseScore8}>Increase Runs by  8</button>
+          <button className="increaseRuns" onClick={increaseScore3}>Increase Runs by 3</button>
+          <button className="increaseRuns" onClick={updateWicket}>Update Wicket</button>
+          </div>
+          <div id= "reset">
+             <button onClick={resetScore}>Reset Score</button>
+             <button onClick={resetWickets}>Reset Wickets</button>
+          </div>
+        </>
+        );
+    }
+
+   
+   function CricketScorecard () {
+   
+    const [runs , setRuns] = React.useState(0);
+    const [wickets , setWickets] = React.useState(0);
+
+    function increaseScore (value) {
+      return (runs + value);
+   }
+
+      function updateWicket () { 
+          if(wickets >= 10) {
+            setWickets(wickets);
+          }
+          else {
+            setWickets(wickets + 1);
+          }
+        ;
+      }
+
+      function increaseScore4 () {
+       setRuns(increaseScore(4));
+      }
+
+      function resetScore () {
+        setRuns(0);
+      }
+
+      function resetWickets () {
+        setWickets(0);
+      }
+
+      function increaseScore8 () {
+       setRuns(increaseScore(8));
+      }
+
+      function increaseScore3 () {
+       setRuns(increaseScore(3));
+      }
+
+       
+      return (
+         <div id="container">
+          <h1><span style = {{color: "#FF0060"}}>Cricket</span> <span style = {{color: "#F6FA70"}}>Scorecard</span> 🏏</h1>
+          <div id="scorecard">
+            <h2><span style = {{color: "#F8F4EC"}}>Runs :</span> {runs}</h2>
+            <h2><span style = {{color: "#F8F4EC"}}>Wickets :</span>  {wickets}</h2>
+          </div>
+          <Buttons increaseScore4={increaseScore4} increaseScore8={increaseScore8} increaseScore3={increaseScore3} updateWicket={updateWicket} resetScore={resetScore} resetWickets={resetWickets}/>
+         </div>
+      );
+   }
+
+   function App () {
+    return <>
+            <CricketScorecard/>
+           </>
+   }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</html>
